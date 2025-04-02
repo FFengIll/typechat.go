@@ -10,14 +10,14 @@ import (
 
 var log = logrus.StandardLogger()
 
-// Translate is a top-level convenience function
-func Translate(template string, prompt string, models ...interface{}) (string, error) {
-	t := NewTranslator(template)
+// CustomTranslate is a top-level convenience function
+func CustomTranslate(template string, prompt string, models ...interface{}) (string, error) {
+	t := NewTranslatorWithTemplate(template)
 	return t.Generate(prompt, models...)
 }
 
-func DefaultTraslate(prompt string, models ...interface{}) (string, error) {
-	t := NewDefaultTranslator()
+func Traslate(prompt string, models ...interface{}) (string, error) {
+	t := NewTranslator()
 	return t.Generate(prompt, models...)
 }
 
@@ -32,8 +32,8 @@ Respond strictly with JSON. The JSON should be compatible with the Go struct Res
 %s
 ` + "```"
 
-// NewTranslator creates a new translator instance
-func NewTranslator(template string) *Translator {
+// NewTranslatorWithTemplate creates a new translator instance
+func NewTranslatorWithTemplate(template string) *Translator {
 	if template == "" {
 		template = defaultTemplate
 	}
@@ -42,8 +42,8 @@ func NewTranslator(template string) *Translator {
 	}
 }
 
-func NewDefaultTranslator() *Translator {
-	return NewTranslator("")
+func NewTranslator() *Translator {
+	return NewTranslatorWithTemplate("")
 }
 
 // filterModel filters and deduplicates models

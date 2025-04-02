@@ -21,7 +21,7 @@ func main() {
 	prompt := "Provide 3 suggestions for specific places to go to in Seattle on a rainy day."
 
 	// simple api
-	res, err := typechat.DefaultTraslate(prompt, &Response{}, &VenueData{})
+	res, err := typechat.Traslate(prompt, &Response{}, &VenueData{})
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
@@ -29,7 +29,7 @@ func main() {
 	fmt.Printf("%+v\n", res)
 
 	// general method
-	t := typechat.NewDefaultTranslator()
+	t := typechat.NewTranslator()
 	str, err := t.Generate(prompt, &Response{}, &VenueData{})
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
